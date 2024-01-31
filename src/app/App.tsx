@@ -1,6 +1,4 @@
 import { useState } from 'react';
-
-import './App.css';
 import { Header } from './common/components/Header';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';

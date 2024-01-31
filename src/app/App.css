@@ -1,7 +1,0 @@
-#root {
-  max-width: calc(100vw - 2rem - 2em);
-  min-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
