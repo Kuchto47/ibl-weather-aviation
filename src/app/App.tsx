@@ -2,12 +2,36 @@ import { useState } from 'react'
 import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { Header } from './common/components/Header'
+import { OptionsPanel } from './common/components/OptionsPanel'
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline'
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
+  const [count, setCount] = useState(0);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(currentTheme => !currentTheme);
+  }
+
+  const theme = createTheme({
+    palette: {
+      mode: isDarkMode ? 'dark' : 'light',
+      primary: {
+        main: '#90caf9',
+      },
+      secondary: {
+        main: '#131052',
+      },
+    },
+  });
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Header />
+      <OptionsPanel darkMode={isDarkMode} toggleDarkMode={toggleDarkMode}/>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -28,8 +52,6 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-    </>
-  )
+    </ThemeProvider>
+  );
 }
-
-export default App
