@@ -1,21 +1,32 @@
-import { createUseStyles } from 'react-jss';
+import { PropsWithChildren } from "react";
+import { createUseStyles } from "react-jss";
+import { MaterialUISwitch } from "./MuiThemeSwitch";
+import { AppBar, Toolbar } from "@mui/material";
+
+interface Props {
+    darkMode: boolean;
+    toggleDarkMode: () => void;
+}
 
 const useStyles = createUseStyles({
-    headerWrapper: {
-        width: '100%',
-        overflow: 'hidden',
-        display: 'flex',
-        justifyContent: 'center',
-        height: '250px'
+    themeSwitcher: {
+        marginLeft: 'auto'
+    },
+    appBar: {
+        backgroundImage: 'url("src/assets/airport_panorama.jpg")',
+        backgroundSize: 'cover',
     }
-})
+});
 
-export const Header = () => {
-    const pathToPic = 'src/assets/airport_panorama.jpg';
+export const Header = (props: PropsWithChildren<Props>) => {
     const styles = useStyles();
     return (
-        <div className={styles.headerWrapper}>
-            <img src={pathToPic} />
-        </div>
+        <AppBar className={styles.appBar}>
+            <Toolbar>
+                <div className={styles.themeSwitcher}>
+                    <MaterialUISwitch checked={props.darkMode} onChange={props.toggleDarkMode} />
+                </div>
+            </Toolbar>
+        </AppBar>
     );
 };
