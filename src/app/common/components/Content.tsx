@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const useStyles = createUseStyles({
     container: {
-      marginTop: '60px'
+      marginTop: '84px'
     }
   });
 
@@ -15,7 +15,7 @@ export const Content = () => {
     const styles = useStyles();
     
     return (
-        <Container maxWidth="md" className={styles.container}>
+        <Container maxWidth="xl" className={styles.container}>
             <div>
             <a href="https://vitejs.dev" target="_blank">
                 <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -34,7 +34,7 @@ export const Content = () => {
             </p>
             </div>
             <p className="read-the-docs">
-            Click on the Vite and React logos to learn more
+                Click on the Vite and React logos to learn more
             </p>
         </Container>
     );
