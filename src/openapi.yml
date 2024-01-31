@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: IBL API
+  description: IBL API for weather info.
+  version: 0.0.1
+servers:
+  - url: https://ogcie.iblsoft.com/ria/
+    description: Address of exposed API with JSON-RPC
+paths:
+  /opmetquery:
+    post:
+      summary: Post an opmet query.
+      operationId: getWeatherInfo
+      tags:
+        - Opmet
+      description: Request weather data for given airports and/or countries.
+      requestBody:
+        description: Opmet query details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpmetRequest'
+      responses:
+        '200':
+          description: Opmet response in JSON format
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/OpmetResponse'
+components:
+  schemas:
+    OpmetRequest:
+      description: Request body
+      type: object
+      properties:
+        id:
+          type: string
+        method:
+          type: string
+          enum: [query]
+        params:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpmetRequestParam'
+      required:
+        - id
+        - method
+        - params
+    OpmetResponse:
+      description: Response body
+      type: object
+      properties:
+        error:
+          type: string
+          nullable: true
+        id:
+          type: string
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpmetResponseResult'
+    OpmetRequestParam:
+      description: Query param
+      type: object
+      properties:
+        id:
+          type: string
+        reportTypes:
+          type: array
+          items:
+            type: string
+            enum: [METAR, SIGMET, TAF_LONGTAF]
+        stations:
+          type: array
+          items:
+            type: string
+        countries:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - reportTypes
+    OpmetResponseResult:
+      description: Result
+      type: object
+      properties:
+        placeId:
+          type: string
+        queryType:
+          type: string
+          enum: [METAR, SIGMET, TAF_LONGTAF]
+        receptionTime:
+          type: string
+          format: date-time
+        refs:
+          type: array
+          items:
+            type: string
+        reportTime:
+          type: string
+          format: date-time
+        reportType:
+          type: string
+        revision:
+          type: string
+        stationId:
+          type: string
+        text:
+          type: string
+        textHTML:
+          type: string
+      required:
+        - stationId
+        - queryType
+        - reportTime
+        - text
