@@ -1,7 +1,7 @@
-import { OpmetRequestParamReportTypesEnum } from '../../../generated/sdk';
+import { OpmetRequestParamDTOReportTypesEnum } from '../../../generated/sdk';
 
 export interface WeatherQuery {
-    reportTypes: OpmetRequestParamReportTypesEnum[];
+    reportTypes: OpmetRequestParamDTOReportTypesEnum[];
     stations?: string[];
     countries?: string[];
 }

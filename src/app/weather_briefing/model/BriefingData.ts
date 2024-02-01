@@ -1,7 +1,7 @@
-import { OpmetResponseResultQueryTypeEnum } from '../../../generated/sdk';
+import { OpmetResponseResultDTOQueryTypeEnum } from '../../../generated/sdk';
 
 export interface BriefingData {
-    queryType: OpmetResponseResultQueryTypeEnum;
+    queryType: OpmetResponseResultDTOQueryTypeEnum;
     reportTime: Date;
     stationId: string;
     text: string;
@@ -12,3 +12,5 @@ export interface BriefingData {
     revision?: string;
     textHTML?: string;
 }
+
+export type BriefingDataArray = BriefingData[];
