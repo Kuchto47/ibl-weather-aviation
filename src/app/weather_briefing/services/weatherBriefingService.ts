@@ -7,6 +7,7 @@ export class WeatherBriefingService {
 
     async getWeatherBriefing(query: WeatherQuery) {
         try {
+            // TODO if error is non-null then do something...
             return await this.opmetApi.getWeatherInfo({
                 opmetRequestDTO: mapWeatherQueryToRequestDto(query)
             });
