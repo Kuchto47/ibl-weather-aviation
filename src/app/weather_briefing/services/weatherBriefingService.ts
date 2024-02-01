@@ -1,4 +1,5 @@
 import { OpmetApi } from '../../../generated/sdk';
+import { WeatherQueryError } from '../errors/WeatherQueryError';
 import { WeatherQuery } from '../model/WeatherQuery';
 import { mapWeatherQueryToRequestDto } from './mapperService';
 
@@ -7,12 +8,18 @@ export class WeatherBriefingService {
 
     async getWeatherBriefing(query: WeatherQuery) {
         try {
-            // TODO if error is non-null then do something...
-            return await this.opmetApi.getWeatherInfo({
+            const response = await this.opmetApi.getWeatherInfo({
                 opmetRequestDTO: mapWeatherQueryToRequestDto(query)
             });
-        } catch (e) {
-            console.error('TODO error handling. Something went wrong:', e);
+            if (response.error) throw new WeatherQueryError(response.error.message);
+            return response;
+        } catch (error) {
+            //TODO nice error handling
+            if (error instanceof WeatherQueryError) {
+                console.error(`Something went wrong: ${error.message}`);
+            } else {
+                console.error(`Something went wrong: ${error}`);
+            }
         }
     }
 }
