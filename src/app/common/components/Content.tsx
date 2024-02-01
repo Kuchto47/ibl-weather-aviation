@@ -1,7 +1,6 @@
 import Container from '@mui/material/Container';
 import { createUseStyles } from 'react-jss';
-import { Form } from '../../weather_briefing/components/Form';
-import { BriefingSummary } from '../../weather_briefing/components/BriefingSummary';
+import { Briefing } from '../../weather_briefing/components/Briefing';
 
 const useStyles = createUseStyles({
     container: {
@@ -14,8 +13,7 @@ export const Content = () => {
 
     return (
         <Container maxWidth="xl" className={styles.container}>
-            <Form />
-            <BriefingSummary />
+            <Briefing />
         </Container>
     );
 };
