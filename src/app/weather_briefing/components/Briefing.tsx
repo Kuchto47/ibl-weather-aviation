@@ -14,12 +14,12 @@ export const Briefing = () => {
     return (
         <>
             <Grid container spacing={2}>
-                <Grid item md={4} sm={12}>
+                <Grid item md={6} sm={12}>
                     <Container>
                         <Form onBriefingReceived={onBriefingDataReceive} />
                     </Container>
                 </Grid>
-                <Grid item md={8} sm={12}>
+                <Grid item md={6} sm={12}>
                     <Container>
                         <BriefingSummary briefingData={briefingData} />
                     </Container>
