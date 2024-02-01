@@ -1,16 +1,19 @@
-import { OpmetApi } from "../../../generated/sdk";
-import { WeatherQuery } from "../model/WeatherQuery";
+import { OpmetApi } from '../../../generated/sdk';
+import { WeatherQuery } from '../model/WeatherQuery';
+import { mapWeatherQueryToRequestDto } from './mapperService';
 
 export class WeatherBriefingService {
-    public constructor(
-        private opmetApi: OpmetApi
-    ) {}
+    public constructor(private opmetApi: OpmetApi) {}
 
-    async getWeatherBriefing(options: WeatherQuery) {
-        // TODO
+    async getWeatherBriefing(query: WeatherQuery) {
+        try {
+            return await this.opmetApi.getWeatherInfo({
+                opmetRequestDTO: mapWeatherQueryToRequestDto(query)
+            });
+        } catch (e) {
+            console.error('TODO error handling. Something went wrong:', e);
+        }
     }
 }
 
-export default new WeatherBriefingService(
-    new OpmetApi()
-);
+export default new WeatherBriefingService(new OpmetApi());
