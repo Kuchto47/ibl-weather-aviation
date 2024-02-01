@@ -16,67 +16,67 @@ import { exists, mapValues } from '../runtime';
 /**
  * Result
  * @export
- * @interface OpmetResponseResult
+ * @interface OpmetResponseResultDTO
  */
-export interface OpmetResponseResult {
+export interface OpmetResponseResultDTO {
     /**
      * 
      * @type {string}
-     * @memberof OpmetResponseResult
+     * @memberof OpmetResponseResultDTO
      */
     placeId?: string;
     /**
      * 
      * @type {string}
-     * @memberof OpmetResponseResult
+     * @memberof OpmetResponseResultDTO
      */
-    queryType: OpmetResponseResultQueryTypeEnum;
+    queryType: OpmetResponseResultDTOQueryTypeEnum;
     /**
      * 
      * @type {Date}
-     * @memberof OpmetResponseResult
+     * @memberof OpmetResponseResultDTO
      */
     receptionTime?: Date;
     /**
      * 
      * @type {Array<string>}
-     * @memberof OpmetResponseResult
+     * @memberof OpmetResponseResultDTO
      */
     refs?: Array<string>;
     /**
      * 
      * @type {Date}
-     * @memberof OpmetResponseResult
+     * @memberof OpmetResponseResultDTO
      */
     reportTime: Date;
     /**
      * 
      * @type {string}
-     * @memberof OpmetResponseResult
+     * @memberof OpmetResponseResultDTO
      */
     reportType?: string;
     /**
      * 
      * @type {string}
-     * @memberof OpmetResponseResult
+     * @memberof OpmetResponseResultDTO
      */
     revision?: string;
     /**
      * 
      * @type {string}
-     * @memberof OpmetResponseResult
+     * @memberof OpmetResponseResultDTO
      */
     stationId: string;
     /**
      * 
      * @type {string}
-     * @memberof OpmetResponseResult
+     * @memberof OpmetResponseResultDTO
      */
     text: string;
     /**
      * 
      * @type {string}
-     * @memberof OpmetResponseResult
+     * @memberof OpmetResponseResultDTO
      */
     textHTML?: string;
 }
@@ -85,18 +85,18 @@ export interface OpmetResponseResult {
 /**
  * @export
  */
-export const OpmetResponseResultQueryTypeEnum = {
+export const OpmetResponseResultDTOQueryTypeEnum = {
     Metar: 'METAR',
     Sigmet: 'SIGMET',
     TafLongtaf: 'TAF_LONGTAF'
 } as const;
-export type OpmetResponseResultQueryTypeEnum = typeof OpmetResponseResultQueryTypeEnum[keyof typeof OpmetResponseResultQueryTypeEnum];
+export type OpmetResponseResultDTOQueryTypeEnum = typeof OpmetResponseResultDTOQueryTypeEnum[keyof typeof OpmetResponseResultDTOQueryTypeEnum];
 
 
 /**
- * Check if a given object implements the OpmetResponseResult interface.
+ * Check if a given object implements the OpmetResponseResultDTO interface.
  */
-export function instanceOfOpmetResponseResult(value: object): boolean {
+export function instanceOfOpmetResponseResultDTO(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "queryType" in value;
     isInstance = isInstance && "reportTime" in value;
@@ -106,11 +106,11 @@ export function instanceOfOpmetResponseResult(value: object): boolean {
     return isInstance;
 }
 
-export function OpmetResponseResultFromJSON(json: any): OpmetResponseResult {
-    return OpmetResponseResultFromJSONTyped(json, false);
+export function OpmetResponseResultDTOFromJSON(json: any): OpmetResponseResultDTO {
+    return OpmetResponseResultDTOFromJSONTyped(json, false);
 }
 
-export function OpmetResponseResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): OpmetResponseResult {
+export function OpmetResponseResultDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): OpmetResponseResultDTO {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -129,7 +129,7 @@ export function OpmetResponseResultFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function OpmetResponseResultToJSON(value?: OpmetResponseResult | null): any {
+export function OpmetResponseResultDTOToJSON(value?: OpmetResponseResultDTO | null): any {
     if (value === undefined) {
         return undefined;
     }

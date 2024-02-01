@@ -15,18 +15,18 @@
 
 import * as runtime from '../runtime';
 import type {
-  OpmetRequest,
-  OpmetResponse,
+  OpmetRequestDTO,
+  OpmetResponseDTO,
 } from '../models/index';
 import {
-    OpmetRequestFromJSON,
-    OpmetRequestToJSON,
-    OpmetResponseFromJSON,
-    OpmetResponseToJSON,
+    OpmetRequestDTOFromJSON,
+    OpmetRequestDTOToJSON,
+    OpmetResponseDTOFromJSON,
+    OpmetResponseDTOToJSON,
 } from '../models/index';
 
 export interface GetWeatherInfoRequest {
-    opmetRequest: OpmetRequest;
+    opmetRequestDTO: OpmetRequestDTO;
 }
 
 /**
@@ -38,9 +38,9 @@ export class OpmetApi extends runtime.BaseAPI {
      * Request weather data for given airports and/or countries.
      * Post an opmet query.
      */
-    async getWeatherInfoRaw(requestParameters: GetWeatherInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OpmetResponse>> {
-        if (requestParameters.opmetRequest === null || requestParameters.opmetRequest === undefined) {
-            throw new runtime.RequiredError('opmetRequest','Required parameter requestParameters.opmetRequest was null or undefined when calling getWeatherInfo.');
+    async getWeatherInfoRaw(requestParameters: GetWeatherInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OpmetResponseDTO>> {
+        if (requestParameters.opmetRequestDTO === null || requestParameters.opmetRequestDTO === undefined) {
+            throw new runtime.RequiredError('opmetRequestDTO','Required parameter requestParameters.opmetRequestDTO was null or undefined when calling getWeatherInfo.');
         }
 
         const queryParameters: any = {};
@@ -54,17 +54,17 @@ export class OpmetApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: OpmetRequestToJSON(requestParameters.opmetRequest),
+            body: OpmetRequestDTOToJSON(requestParameters.opmetRequestDTO),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => OpmetResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => OpmetResponseDTOFromJSON(jsonValue));
     }
 
     /**
      * Request weather data for given airports and/or countries.
      * Post an opmet query.
      */
-    async getWeatherInfo(requestParameters: GetWeatherInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OpmetResponse> {
+    async getWeatherInfo(requestParameters: GetWeatherInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OpmetResponseDTO> {
         const response = await this.getWeatherInfoRaw(requestParameters, initOverrides);
         return await response.value();
     }

@@ -20,17 +20,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OpmetRequest'
+              $ref: '#/components/schemas/OpmetRequestDTO'
       responses:
         '200':
           description: Opmet response in JSON format
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/OpmetResponse'
+                $ref: '#/components/schemas/OpmetResponseDTO'
 components:
   schemas:
-    OpmetRequest:
+    OpmetRequestDTO:
       description: Request body
       type: object
       properties:
@@ -42,12 +42,12 @@ components:
         params:
           type: array
           items:
-            $ref: '#/components/schemas/OpmetRequestParam'
+            $ref: '#/components/schemas/OpmetRequestParamDTO'
       required:
         - id
         - method
         - params
-    OpmetResponse:
+    OpmetResponseDTO:
       description: Response body
       type: object
       properties:
@@ -59,8 +59,8 @@ components:
         result:
           type: array
           items:
-            $ref: '#/components/schemas/OpmetResponseResult'
-    OpmetRequestParam:
+            $ref: '#/components/schemas/OpmetResponseResultDTO'
+    OpmetRequestParamDTO:
       description: Query param
       type: object
       properties:
@@ -82,7 +82,7 @@ components:
       required:
         - id
         - reportTypes
-    OpmetResponseResult:
+    OpmetResponseResultDTO:
       description: Result
       type: object
       properties:

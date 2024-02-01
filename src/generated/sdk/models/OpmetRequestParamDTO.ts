@@ -16,31 +16,31 @@ import { exists, mapValues } from '../runtime';
 /**
  * Query param
  * @export
- * @interface OpmetRequestParam
+ * @interface OpmetRequestParamDTO
  */
-export interface OpmetRequestParam {
+export interface OpmetRequestParamDTO {
     /**
      * 
      * @type {string}
-     * @memberof OpmetRequestParam
+     * @memberof OpmetRequestParamDTO
      */
     id: string;
     /**
      * 
      * @type {Array<string>}
-     * @memberof OpmetRequestParam
+     * @memberof OpmetRequestParamDTO
      */
-    reportTypes: Array<OpmetRequestParamReportTypesEnum>;
+    reportTypes: Array<OpmetRequestParamDTOReportTypesEnum>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof OpmetRequestParam
+     * @memberof OpmetRequestParamDTO
      */
     stations?: Array<string>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof OpmetRequestParam
+     * @memberof OpmetRequestParamDTO
      */
     countries?: Array<string>;
 }
@@ -49,18 +49,18 @@ export interface OpmetRequestParam {
 /**
  * @export
  */
-export const OpmetRequestParamReportTypesEnum = {
+export const OpmetRequestParamDTOReportTypesEnum = {
     Metar: 'METAR',
     Sigmet: 'SIGMET',
     TafLongtaf: 'TAF_LONGTAF'
 } as const;
-export type OpmetRequestParamReportTypesEnum = typeof OpmetRequestParamReportTypesEnum[keyof typeof OpmetRequestParamReportTypesEnum];
+export type OpmetRequestParamDTOReportTypesEnum = typeof OpmetRequestParamDTOReportTypesEnum[keyof typeof OpmetRequestParamDTOReportTypesEnum];
 
 
 /**
- * Check if a given object implements the OpmetRequestParam interface.
+ * Check if a given object implements the OpmetRequestParamDTO interface.
  */
-export function instanceOfOpmetRequestParam(value: object): boolean {
+export function instanceOfOpmetRequestParamDTO(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "reportTypes" in value;
@@ -68,11 +68,11 @@ export function instanceOfOpmetRequestParam(value: object): boolean {
     return isInstance;
 }
 
-export function OpmetRequestParamFromJSON(json: any): OpmetRequestParam {
-    return OpmetRequestParamFromJSONTyped(json, false);
+export function OpmetRequestParamDTOFromJSON(json: any): OpmetRequestParamDTO {
+    return OpmetRequestParamDTOFromJSONTyped(json, false);
 }
 
-export function OpmetRequestParamFromJSONTyped(json: any, ignoreDiscriminator: boolean): OpmetRequestParam {
+export function OpmetRequestParamDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): OpmetRequestParamDTO {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -85,7 +85,7 @@ export function OpmetRequestParamFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function OpmetRequestParamToJSON(value?: OpmetRequestParam | null): any {
+export function OpmetRequestParamDTOToJSON(value?: OpmetRequestParamDTO | null): any {
     if (value === undefined) {
         return undefined;
     }

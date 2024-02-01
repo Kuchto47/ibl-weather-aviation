@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export * from './OpmetRequest';
-export * from './OpmetRequestParam';
-export * from './OpmetResponse';
-export * from './OpmetResponseResult';
+export * from './OpmetRequestDTO';
+export * from './OpmetRequestParamDTO';
+export * from './OpmetResponseDTO';
+export * from './OpmetResponseResultDTO';
