@@ -4,7 +4,13 @@ import { Briefing } from '../../weather_briefing/components/Briefing';
 
 const useStyles = createUseStyles({
     container: {
-        marginTop: '84px'
+        marginTop: '84px',
+        height: 'calc(100vh - 84px)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '550px'
     }
 });
 
