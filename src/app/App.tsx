@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Content } from './common/components/Content';
 
 export const App = () => {
-    const [isDarkMode, setIsDarkMode] = useState(true);
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
     const toggleDarkMode = () => {
         setIsDarkMode((currentTheme) => !currentTheme);
