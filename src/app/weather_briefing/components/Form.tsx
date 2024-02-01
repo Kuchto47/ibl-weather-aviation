@@ -2,7 +2,8 @@ import { PropsWithChildren, useState } from 'react';
 import { useFetchWeatherData } from '../hooks/useFetchWeatherData';
 import { WeatherQuery } from '../model/WeatherQuery';
 import { BriefingDataArray } from '../model/BriefingData';
-import { OpmetRequestParamDTOReportTypesEnum } from '../../../generated/sdk/models';
+import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { Checkboxes } from './Checkboxes';
 
 type ReportType = 0 | 1 | 2;
 
@@ -10,19 +11,7 @@ interface Props {
     onBriefingReceived: (briefing: BriefingDataArray) => void;
 }
 
-interface FormData {
-    reportTypes: OpmetRequestParamDTOReportTypesEnum[];
-    airports: string;
-    countries: string;
-}
-
 export const Form = (props: PropsWithChildren<Props>) => {
-    const [formData, setFormData] = useState<FormData>({
-        reportTypes: [],
-        airports: '',
-        countries: ''
-    });
-    
     const fetchData = useFetchWeatherData();
 
     const getWeatherBriefing = async () => {
@@ -34,5 +23,23 @@ export const Form = (props: PropsWithChildren<Props>) => {
         props.onBriefingReceived(await fetchData(query));
     };
 
-    return <button onClick={getWeatherBriefing}>Get weather demo</button>;
+    return (
+        <>
+            <TableContainer component={Paper}>
+                <Table sx={{minWidth: '445px'}}>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>
+                                Message Types:
+                            </TableCell>
+                            <TableCell>
+                                <Checkboxes />
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <button onClick={getWeatherBriefing}>Get weather demo</button>
+        </>
+    );
 };
