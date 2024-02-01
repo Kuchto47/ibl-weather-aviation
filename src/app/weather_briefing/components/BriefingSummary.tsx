@@ -1,3 +1,10 @@
-export const BriefingSummary = () => {
-    return <h1>Here will be briefing summary</h1>;
+import { PropsWithChildren } from 'react';
+import { BriefingDataArray } from '../model/BriefingData';
+
+interface Props {
+    briefingData: BriefingDataArray;
+}
+
+export const BriefingSummary = (props: PropsWithChildren<Props>) => {
+    return <p>{JSON.stringify(props.briefingData)}</p>;
 };

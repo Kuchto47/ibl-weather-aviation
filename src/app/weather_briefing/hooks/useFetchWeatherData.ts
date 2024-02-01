@@ -7,8 +7,6 @@ import { BriefingDataArray } from '../model/BriefingData';
 export const useFetchWeatherData = () => {
     return useCallback(async (query: WeatherQuery): Promise<BriefingDataArray> => {
         const result = await weatherBriefingService.getWeatherBriefing(query);
-        return result
-            ? mapResponseDtoToBriefingData(result)
-            : [];
+        return result ? mapResponseDtoToBriefingData(result) : [];
     }, []);
 };
