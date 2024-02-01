@@ -13,6 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { OpmetResponseErrorDTO } from './OpmetResponseErrorDTO';
+import {
+    OpmetResponseErrorDTOFromJSON,
+    OpmetResponseErrorDTOFromJSONTyped,
+    OpmetResponseErrorDTOToJSON,
+} from './OpmetResponseErrorDTO';
 import type { OpmetResponseResultDTO } from './OpmetResponseResultDTO';
 import {
     OpmetResponseResultDTOFromJSON,
@@ -28,10 +34,10 @@ import {
 export interface OpmetResponseDTO {
     /**
      * 
-     * @type {string}
+     * @type {OpmetResponseErrorDTO}
      * @memberof OpmetResponseDTO
      */
-    error?: string | null;
+    error?: OpmetResponseErrorDTO;
     /**
      * 
      * @type {string}
@@ -43,7 +49,7 @@ export interface OpmetResponseDTO {
      * @type {Array<OpmetResponseResultDTO>}
      * @memberof OpmetResponseDTO
      */
-    result?: Array<OpmetResponseResultDTO>;
+    result?: Array<OpmetResponseResultDTO> | null;
 }
 
 /**
@@ -65,9 +71,9 @@ export function OpmetResponseDTOFromJSONTyped(json: any, ignoreDiscriminator: bo
     }
     return {
         
-        'error': !exists(json, 'error') ? undefined : json['error'],
+        'error': !exists(json, 'error') ? undefined : OpmetResponseErrorDTOFromJSON(json['error']),
         'id': !exists(json, 'id') ? undefined : json['id'],
-        'result': !exists(json, 'result') ? undefined : ((json['result'] as Array<any>).map(OpmetResponseResultDTOFromJSON)),
+        'result': !exists(json, 'result') ? undefined : (json['result'] === null ? null : (json['result'] as Array<any>).map(OpmetResponseResultDTOFromJSON)),
     };
 }
 
@@ -80,9 +86,9 @@ export function OpmetResponseDTOToJSON(value?: OpmetResponseDTO | null): any {
     }
     return {
         
-        'error': value.error,
+        'error': OpmetResponseErrorDTOToJSON(value.error),
         'id': value.id,
-        'result': value.result === undefined ? undefined : ((value.result as Array<any>).map(OpmetResponseResultDTOToJSON)),
+        'result': value.result === undefined ? undefined : (value.result === null ? null : (value.result as Array<any>).map(OpmetResponseResultDTOToJSON)),
     };
 }
 

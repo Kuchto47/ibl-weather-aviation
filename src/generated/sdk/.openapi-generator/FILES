@@ -5,6 +5,7 @@ index.ts
 models/OpmetRequestDTO.ts
 models/OpmetRequestParamDTO.ts
 models/OpmetResponseDTO.ts
+models/OpmetResponseErrorDTO.ts
 models/OpmetResponseResultDTO.ts
 models/index.ts
 runtime.ts

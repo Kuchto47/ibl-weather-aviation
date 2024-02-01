@@ -52,7 +52,7 @@ components:
       type: object
       properties:
         error:
-          type: string
+          $ref: '#/components/schemas/OpmetResponseErrorDTO'
           nullable: true
         id:
           type: string
@@ -60,6 +60,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OpmetResponseResultDTO'
+          nullable: true
     OpmetRequestParamDTO:
       description: Query param
       type: object
@@ -116,3 +117,19 @@ components:
         - queryType
         - reportTime
         - text
+    OpmetResponseErrorDTO:
+      description: Query error
+      type: object
+      properties:
+        code:
+          type: number
+        data:
+          $ref: '#/components/schemas/OpmetResponseErrorDataDTO'
+          nullable: true
+        message:
+          type: string
+      required:
+        - code
+        - data
+        - message
+    OpmetResponseErrorDataDTO: {}
