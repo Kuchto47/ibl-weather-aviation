@@ -1,7 +1,7 @@
-import { PropsWithChildren } from "react";
-import { createUseStyles } from "react-jss";
-import { MaterialUISwitch } from "./MuiThemeSwitch";
-import { AppBar, Toolbar } from "@mui/material";
+import { PropsWithChildren } from 'react';
+import { createUseStyles } from 'react-jss';
+import { MaterialUISwitch } from './MuiThemeSwitch';
+import { AppBar, Toolbar } from '@mui/material';
 
 interface Props {
     darkMode: boolean;
@@ -14,7 +14,7 @@ const useStyles = createUseStyles({
     },
     appBar: {
         backgroundImage: 'url("src/assets/airport_panorama.jpg")',
-        backgroundSize: 'cover',
+        backgroundSize: 'cover'
     }
 });
 
