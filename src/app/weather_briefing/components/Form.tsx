@@ -49,7 +49,7 @@ export const Form = () => {
                             <TableCell align="right">
                                 <Button
                                     variant="contained"
-                                    onClick={() => {}}
+                                    onClick={getWeatherBriefing}
                                     disabled={!formSendable}
                                 >
                                     Create Briefing
