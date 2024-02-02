@@ -1,5 +1,5 @@
-import { FormControl, TextField } from "@mui/material";
-import { PropsWithChildren } from "react";
+import { FormControl, TextField } from '@mui/material';
+import { PropsWithChildren } from 'react';
 
 interface Props {
     label: 'Airports' | 'Countries';
@@ -8,7 +8,7 @@ interface Props {
 export const TextInputField = (props: PropsWithChildren<Props>) => {
     return (
         <FormControl fullWidth>
-            <TextField label={props.label} variant="filled"/>
+            <TextField label={props.label} variant="filled" />
         </FormControl>
     );
 };

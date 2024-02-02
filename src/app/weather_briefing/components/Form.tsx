@@ -11,14 +11,14 @@ import {
     TableContainer,
     TableRow
 } from '@mui/material';
-import { Checkboxes } from './Checkboxes';
-import { TextInputField } from './TextInputField';
+import { InputTable } from './InputTable';
 
 interface Props {
     onBriefingReceived: (briefing: BriefingDataArray) => void;
 }
 
 export const Form = (props: PropsWithChildren<Props>) => {
+    const [isFormSendable, setIsFormSendable] = useState(false);
     const fetchData = useFetchWeatherData();
 
     const getWeatherBriefing = async () => {
@@ -30,6 +30,10 @@ export const Form = (props: PropsWithChildren<Props>) => {
         props.onBriefingReceived(await fetchData(query));
     };
 
+    const updateIsFormSendable = (sendable: boolean) => {
+        setIsFormSendable(sendable);
+    };
+
     return (
         <>
             <TableContainer component={Paper}>
@@ -37,13 +41,17 @@ export const Form = (props: PropsWithChildren<Props>) => {
                     <TableBody>
                         <TableRow>
                             <TableCell>
-                                <InputTable />
+                                <InputTable dispatchFormSendable={updateIsFormSendable} />
                             </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="right">
-                                <Button variant="contained" onClick={getWeatherBriefing}>
-                                    Get weather demo
+                                <Button
+                                    variant="contained"
+                                    onClick={getWeatherBriefing}
+                                    disabled={!isFormSendable}
+                                >
+                                    Create Briefing
                                 </Button>
                             </TableCell>
                         </TableRow>
@@ -51,34 +59,5 @@ export const Form = (props: PropsWithChildren<Props>) => {
                 </Table>
             </TableContainer>
         </>
-    );
-};
-
-const InputTable = () => {
-    return (
-        <TableContainer component={Paper} sx={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
-            <Table sx={{ minWidth: '445px' }}>
-                <TableBody>
-                    <TableRow>
-                        <TableCell>Message Types:</TableCell>
-                        <TableCell>
-                            <Checkboxes />
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>Airports:</TableCell>
-                        <TableCell>
-                            <TextInputField label='Airports'/>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>Countries:</TableCell>
-                        <TableCell>
-                            <TextInputField label='Countries'/>
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
-        </TableContainer>
     );
 };

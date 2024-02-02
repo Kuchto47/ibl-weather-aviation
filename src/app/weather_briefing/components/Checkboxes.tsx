@@ -1,6 +1,10 @@
 import { Checkbox, FormControl, FormControlLabel, FormGroup } from '@mui/material';
-import { useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
+
+interface Props {
+    dispatchFormSendable: (sendable: boolean) => void;
+}
 
 const useStyles = createUseStyles({
     checkbox_margin: {
@@ -11,7 +15,7 @@ const useStyles = createUseStyles({
     }
 });
 
-export const Checkboxes = () => {
+export const Checkboxes = (props: PropsWithChildren<Props>) => {
     const [metarChecked, setMetarChecked] = useState(false);
     const [sigmetChecked, setSigmetChecked] = useState(false);
     const [tafChecked, setTafChecked] = useState(false);
@@ -32,6 +36,10 @@ export const Checkboxes = () => {
 
     const isErroredCheckboxes =
         [metarChecked, sigmetChecked, tafChecked].filter((rt) => !!rt).length === 0;
+
+    useEffect(() => {
+        props.dispatchFormSendable(!isErroredCheckboxes);
+    }, [isErroredCheckboxes]);
 
     return (
         <FormControl required error={isErroredCheckboxes} variant="standard" component="fieldset">
