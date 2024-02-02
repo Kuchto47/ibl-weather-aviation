@@ -29,12 +29,12 @@ export const BriefingSummary = () => {
 const createTableRecord = (data: BriefingData, index: number) => {
     return (
         <>
-            <TableRow>
+            <TableRow key={`${index}1`}>
                 <TableCell>{data.stationId}</TableCell>
                 <TableCell />
                 <TableCell />
             </TableRow>
-            <TableRow>
+            <TableRow key={`${index}2`}>
                 <TableCell>{data.queryType}</TableCell>
                 <TableCell>{formatDate(data.reportTime)}</TableCell>
                 <TableCell>{data.text}</TableCell>
