@@ -1,9 +1,8 @@
-import { Theme } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { useScreenSize } from '../hooks/useScreenSize';
 
 export const ResponsiveDivider = () => {
-    const isLgScreen = useMediaQuery<Theme>((theme) => theme.breakpoints.down('md'));
+    const isSmallScreen = useScreenSize();
 
-    return <Divider orientation={isLgScreen ? 'horizontal' : 'vertical'} />;
+    return <Divider orientation={isSmallScreen ? 'horizontal' : 'vertical'} />;
 };
