@@ -3,7 +3,7 @@ import { BriefingSummary } from './BriefingSummary';
 import { Form } from './Form';
 import { BriefingDataArray } from '../model/BriefingData';
 import { Container, Grid } from '@mui/material';
-import { ResponsiveDivider } from './ResponsiveDivider';
+import { ResponsiveDivider } from '../../common/components/ResponsiveDivider';
 
 export const Briefing = () => {
     const [briefingData, setBriefingData] = useState<BriefingDataArray>([]);
