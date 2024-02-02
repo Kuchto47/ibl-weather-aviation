@@ -1,3 +1,8 @@
+import { useContext } from 'react';
+import { BriefingContext } from '../contexts/BriefingContext';
+
 export const BriefingSummary = () => {
-    return <p>[]</p>;
+    const { briefingData } = useContext(BriefingContext);
+
+    return <p>{briefingData.response ? JSON.stringify(briefingData.response) : '[]'}</p>;
 };
