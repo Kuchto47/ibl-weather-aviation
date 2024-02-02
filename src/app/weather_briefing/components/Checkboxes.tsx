@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
-    checkbox: {
+    checkbox_margin: {
         marginRight: '-7px'
+    },
+    label_padding: {
+        paddingRight: '15px'
     }
 });
 
@@ -39,10 +42,11 @@ export const Checkboxes = () => {
                             checked={metarChecked}
                             onChange={toggleMetar}
                             size="small"
-                            className={styles.checkbox}
+                            className={styles.checkbox_margin}
                         />
                     }
                     label="METAR"
+                    className={styles.label_padding}
                 />
                 <FormControlLabel
                     control={
@@ -50,10 +54,11 @@ export const Checkboxes = () => {
                             checked={sigmetChecked}
                             onChange={toggleSigmet}
                             size="small"
-                            className={styles.checkbox}
+                            className={styles.checkbox_margin}
                         />
                     }
                     label="SIGMET"
+                    className={styles.label_padding}
                 />
                 <FormControlLabel
                     control={
@@ -61,10 +66,11 @@ export const Checkboxes = () => {
                             checked={tafChecked}
                             onChange={toggleTaf}
                             size="small"
-                            className={styles.checkbox}
+                            className={styles.checkbox_margin}
                         />
                     }
                     label="TAF"
+                    className={styles.label_padding}
                 />
             </FormGroup>
         </FormControl>
