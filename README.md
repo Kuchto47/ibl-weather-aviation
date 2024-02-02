@@ -4,7 +4,7 @@ Assignment made for interview purpose.
 
 Assignment itself is described [here](https://ogcie.iblsoft.com/developer-web/)
 
-## Development develop
+## Development
 In order to develop this project, clone to your machine and then
 
 ```
