@@ -30,7 +30,7 @@ export const Form = (props: PropsWithChildren<Props>) => {
         props.onBriefingReceived(await fetchData(query));
     };
 
-        return (
+    return (
         <>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: '450px' }}>
