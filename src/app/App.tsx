@@ -3,6 +3,7 @@ import { Header } from './common/components/Header';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Content } from './common/components/Content';
+import { BriefingContextProvider } from './weather_briefing/contexts/BriefingContextProvider';
 
 export const App = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -24,10 +25,12 @@ export const App = () => {
     });
 
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Header darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-            <Content />
-        </ThemeProvider>
+        <BriefingContextProvider>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Header darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+                <Content />
+            </ThemeProvider>
+        </BriefingContextProvider>
     );
 };
