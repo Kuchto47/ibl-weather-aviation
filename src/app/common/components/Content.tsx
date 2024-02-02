@@ -1,6 +1,7 @@
 import Container from '@mui/material/Container';
 import { createUseStyles } from 'react-jss';
 import { Briefing } from '../../weather_briefing/components/Briefing';
+import { useScreenSize } from '../hooks/useScreenSize';
 
 const useStyles = createUseStyles({
     container: {
@@ -11,14 +12,21 @@ const useStyles = createUseStyles({
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '550px'
+    },
+    smallScreenContainer: {
+        justifyContent: 'flex-start'
     }
 });
 
 export const Content = () => {
     const styles = useStyles();
+    const isSmallScreen = useScreenSize();
 
     return (
-        <Container maxWidth="xl" className={styles.container}>
+        <Container
+            maxWidth="xl"
+            className={`${styles.container} ${isSmallScreen ? styles.smallScreenContainer : ''}`}
+        >
             <Briefing />
         </Container>
     );
