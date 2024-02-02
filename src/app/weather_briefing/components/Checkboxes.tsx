@@ -1,9 +1,4 @@
-import {
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup
-} from '@mui/material';
+import { Checkbox, FormControl, FormControlLabel, FormGroup } from '@mui/material';
 import { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 

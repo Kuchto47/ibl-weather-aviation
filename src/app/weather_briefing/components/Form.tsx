@@ -2,14 +2,7 @@ import { PropsWithChildren, useState } from 'react';
 import { useFetchWeatherData } from '../hooks/useFetchWeatherData';
 import { WeatherQuery } from '../model/WeatherQuery';
 import { BriefingDataArray } from '../model/BriefingData';
-import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableRow
-} from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import { Checkboxes } from './Checkboxes';
 
 interface Props {
@@ -41,15 +34,11 @@ export const Form = (props: PropsWithChildren<Props>) => {
                         </TableRow>
                         <TableRow>
                             <TableCell>Airports:</TableCell>
-                            <TableCell>
-                                TODO
-                            </TableCell>
+                            <TableCell>TODO</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Countries:</TableCell>
-                            <TableCell>
-                                TODO
-                            </TableCell>
+                            <TableCell>TODO</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
