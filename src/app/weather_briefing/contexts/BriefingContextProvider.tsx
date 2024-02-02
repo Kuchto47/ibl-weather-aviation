@@ -5,7 +5,7 @@ export const BriefingContextProvider = (props: PropsWithChildren) => {
     const [briefingData, setBriefingData] = useState(defaultBriefingData);
 
     return (
-        <BriefingContext.Provider value={{ data: briefingData, updateContext: setBriefingData }}>
+        <BriefingContext.Provider value={{ briefingData, updateContext: setBriefingData }}>
             {props.children}
         </BriefingContext.Provider>
     );

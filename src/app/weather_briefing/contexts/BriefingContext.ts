@@ -1,26 +1,30 @@
 import { createContext } from 'react';
 import { WeatherQuery } from '../model/WeatherQuery';
-import { BriefingData } from '../model/BriefingData';
+import { BriefingDataArray } from '../model/BriefingData';
 
-interface BriefingContextData {
+export interface BriefingContextData {
     query: WeatherQuery;
-    response?: BriefingData;
+    response?: BriefingDataArray;
 }
 
 interface BriefingContextBundle {
-    data: BriefingContextData;
+    briefingData: BriefingContextData;
     updateContext: (data: BriefingContextData) => void;
 }
 
 export const defaultBriefingData: BriefingContextData = {
     query: {
-        reportTypes: [],
+        reportTypes: {
+            METAR: false,
+            SIGMET: false,
+            TAF_LONGTAF: false
+        },
         countries: [],
         stations: []
     }
 };
 
 export const BriefingContext = createContext<BriefingContextBundle>({
-    data: defaultBriefingData,
+    briefingData: defaultBriefingData,
     updateContext: () => {}
 });

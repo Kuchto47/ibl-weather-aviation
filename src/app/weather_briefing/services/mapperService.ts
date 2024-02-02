@@ -1,6 +1,10 @@
-import { OpmetRequestDTO, OpmetResponseDTO } from '../../../generated/sdk';
+import {
+    OpmetRequestDTO,
+    OpmetRequestParamDTOReportTypesEnum,
+    OpmetResponseDTO
+} from '../../../generated/sdk';
 import { BriefingDataArray } from '../model/BriefingData';
-import { WeatherQuery } from '../model/WeatherQuery';
+import { ReportTypes, WeatherQuery } from '../model/WeatherQuery';
 import { v4 } from 'uuid';
 
 export const mapWeatherQueryToRequestDto = (query: WeatherQuery): OpmetRequestDTO => {
@@ -11,7 +15,9 @@ export const mapWeatherQueryToRequestDto = (query: WeatherQuery): OpmetRequestDT
         params: [
             {
                 id: uniqueId,
-                ...query
+                countries: query.countries,
+                stations: query.stations,
+                reportTypes: mapReportTypes(query.reportTypes)
             }
         ]
     };
@@ -23,4 +29,14 @@ export const mapResponseDtoToBriefingData = (response: OpmetResponseDTO): Briefi
               ...singleResult
           }))
         : [];
+};
+
+const mapReportTypes = (reportTypes: ReportTypes): OpmetRequestParamDTOReportTypesEnum[] => {
+    const reportTypesDto: OpmetRequestParamDTOReportTypesEnum[] = [];
+    // TODO: this is horrible hardcode, refactor...
+    if (reportTypes.METAR) reportTypesDto.push('METAR');
+    if (reportTypes.SIGMET) reportTypesDto.push('SIGMET');
+    if (reportTypes.TAF_LONGTAF) reportTypesDto.push('TAF_LONGTAF');
+
+    return reportTypesDto;
 };

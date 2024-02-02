@@ -1,7 +1,5 @@
-import { PropsWithChildren, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useFetchWeatherData } from '../hooks/useFetchWeatherData';
-import { WeatherQuery } from '../model/WeatherQuery';
-import { BriefingDataArray } from '../model/BriefingData';
 import {
     Button,
     Paper,
@@ -12,44 +10,47 @@ import {
     TableRow
 } from '@mui/material';
 import { InputTable } from './InputTable';
+import { BriefingContext } from '../contexts/BriefingContext';
+import { isFormSendable } from '../utils/isFormSendable';
 
-interface Props {
-    onBriefingReceived: (briefing: BriefingDataArray) => void;
-}
-
-export const Form = (props: PropsWithChildren<Props>) => {
-    const [isFormSendable, setIsFormSendable] = useState(false);
+export const Form = () => {
+    const [formSendable, setFormSendable] = useState(false);
+    const { briefingData, updateContext } = useContext(BriefingContext);
     const fetchData = useFetchWeatherData();
 
-    const getWeatherBriefing = async () => {
-        const query: WeatherQuery = {
-            reportTypes: ['METAR', 'TAF_LONGTAF'],
-            countries: ['SQ'],
-            stations: ['LKPR', 'EGLL']
-        };
-        props.onBriefingReceived(await fetchData(query));
-    };
+    const getWeatherBriefing = useCallback(async () => {
+        const response = await fetchData(briefingData.query);
+        updateContext({
+            ...briefingData,
+            response
+        });
+    }, [briefingData.query, fetchData]);
 
-    const updateIsFormSendable = (sendable: boolean) => {
-        setIsFormSendable(sendable);
-    };
+    useEffect(() => {
+        const currentFormIsSendable = isFormSendable(briefingData);
+        const previousFormIsSendable = formSendable;
+
+        if (currentFormIsSendable !== previousFormIsSendable) {
+            setFormSendable(currentFormIsSendable);
+        }
+    }, [briefingData]);
 
     return (
         <>
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: '450px' }}>
+                <Table sx={{ minWidth: '475px' }}>
                     <TableBody>
                         <TableRow>
                             <TableCell>
-                                <InputTable dispatchFormSendable={updateIsFormSendable} />
+                                <InputTable />
                             </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="right">
                                 <Button
                                     variant="contained"
-                                    onClick={getWeatherBriefing}
-                                    disabled={!isFormSendable}
+                                    onClick={() => {}}
+                                    disabled={!formSendable}
                                 >
                                     Create Briefing
                                 </Button>

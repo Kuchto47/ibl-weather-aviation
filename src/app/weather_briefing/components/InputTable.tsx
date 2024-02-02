@@ -1,21 +1,16 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import { Checkboxes } from './Checkboxes';
 import { TextInputField } from './TextInputField';
-import { PropsWithChildren } from 'react';
 
-interface Props {
-    dispatchFormSendable: (sendable: boolean) => void;
-}
-
-export const InputTable = (props: PropsWithChildren<Props>) => {
+export const InputTable = () => {
     return (
         <TableContainer component={Paper} sx={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
-            <Table sx={{ minWidth: '445px' }}>
+            <Table sx={{ minWidth: '470px' }}>
                 <TableBody>
                     <TableRow>
                         <TableCell>Message Types:</TableCell>
                         <TableCell>
-                            <Checkboxes dispatchFormSendable={props.dispatchFormSendable} />
+                            <Checkboxes />
                         </TableCell>
                     </TableRow>
                     <TableRow>

@@ -1,10 +1,8 @@
 import { Checkbox, FormControl, FormControlLabel, FormGroup } from '@mui/material';
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { createUseStyles } from 'react-jss';
-
-interface Props {
-    dispatchFormSendable: (sendable: boolean) => void;
-}
+import { BriefingContext } from '../contexts/BriefingContext';
+import { isFormSendable } from '../utils/isFormSendable';
 
 const useStyles = createUseStyles({
     checkbox_margin: {
@@ -15,31 +13,51 @@ const useStyles = createUseStyles({
     }
 });
 
-export const Checkboxes = (props: PropsWithChildren<Props>) => {
-    const [metarChecked, setMetarChecked] = useState(false);
-    const [sigmetChecked, setSigmetChecked] = useState(false);
-    const [tafChecked, setTafChecked] = useState(false);
+export const Checkboxes = () => {
+    const { briefingData, updateContext } = useContext(BriefingContext);
 
     const styles = useStyles();
 
     const toggleMetar = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setMetarChecked(event.target.checked);
+        updateContext({
+            ...briefingData,
+            query: {
+                ...briefingData.query,
+                reportTypes: {
+                    ...briefingData.query.reportTypes,
+                    METAR: event.target.checked
+                }
+            }
+        });
     };
 
     const toggleSigmet = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSigmetChecked(event.target.checked);
+        updateContext({
+            ...briefingData,
+            query: {
+                ...briefingData.query,
+                reportTypes: {
+                    ...briefingData.query.reportTypes,
+                    SIGMET: event.target.checked
+                }
+            }
+        });
     };
 
     const toggleTaf = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTafChecked(event.target.checked);
+        updateContext({
+            ...briefingData,
+            query: {
+                ...briefingData.query,
+                reportTypes: {
+                    ...briefingData.query.reportTypes,
+                    TAF_LONGTAF: event.target.checked
+                }
+            }
+        });
     };
 
-    const isErroredCheckboxes =
-        [metarChecked, sigmetChecked, tafChecked].filter((rt) => !!rt).length === 0;
-
-    useEffect(() => {
-        props.dispatchFormSendable(!isErroredCheckboxes);
-    }, [isErroredCheckboxes]);
+    const isErroredCheckboxes = isFormSendable(briefingData);
 
     return (
         <FormControl required error={isErroredCheckboxes} variant="standard" component="fieldset">
@@ -47,7 +65,7 @@ export const Checkboxes = (props: PropsWithChildren<Props>) => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={metarChecked}
+                            checked={briefingData.query.reportTypes.METAR}
                             onChange={toggleMetar}
                             size="small"
                             className={styles.checkbox_margin}
@@ -59,7 +77,7 @@ export const Checkboxes = (props: PropsWithChildren<Props>) => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={sigmetChecked}
+                            checked={briefingData.query.reportTypes.SIGMET}
                             onChange={toggleSigmet}
                             size="small"
                             className={styles.checkbox_margin}
@@ -71,7 +89,7 @@ export const Checkboxes = (props: PropsWithChildren<Props>) => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={tafChecked}
+                            checked={briefingData.query.reportTypes.TAF_LONGTAF}
                             onChange={toggleTaf}
                             size="small"
                             className={styles.checkbox_margin}
