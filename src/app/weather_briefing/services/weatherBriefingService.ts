@@ -14,7 +14,7 @@ export class WeatherBriefingService {
             if (response.error) throw new WeatherQueryError(response.error.message);
             return response;
         } catch (error) {
-            //TODO nice error handling
+            //TODO add nice error handling
             if (error instanceof WeatherQueryError) {
                 console.error(`Something went wrong: ${error.message}`);
             } else {
