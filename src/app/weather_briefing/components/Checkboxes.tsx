@@ -1,8 +1,9 @@
 import { Checkbox, FormControl, FormControlLabel, FormGroup } from '@mui/material';
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, useCallback, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import { BriefingContext } from '../contexts/BriefingContext';
 import { isFormSendable } from '../utils/isFormSendable';
+import { ReportTypes } from '../model/WeatherQuery';
 
 const useStyles = createUseStyles({
     checkbox_margin: {
@@ -10,6 +11,9 @@ const useStyles = createUseStyles({
     },
     label_padding: {
         paddingRight: '15px'
+    },
+    unselectableLabel: {
+        userSelect: 'none'
     }
 });
 
@@ -18,43 +22,32 @@ export const Checkboxes = () => {
 
     const styles = useStyles();
 
-    const toggleMetar = (event: ChangeEvent<HTMLInputElement>) => {
-        updateContext({
-            ...briefingData,
-            query: {
-                ...briefingData.query,
-                reportTypes: {
-                    ...briefingData.query.reportTypes,
-                    METAR: event.target.checked
+    const updateCheckboxes = useCallback(
+        (reportType: Partial<ReportTypes>) => {
+            updateContext({
+                ...briefingData,
+                query: {
+                    ...briefingData.query,
+                    reportTypes: {
+                        ...briefingData.query.reportTypes,
+                        ...reportType
+                    }
                 }
-            }
-        });
+            });
+        },
+        [briefingData, updateContext]
+    );
+
+    const toggleMetar = (event: ChangeEvent<HTMLInputElement>) => {
+        updateCheckboxes({ METAR: event.target.checked });
     };
 
     const toggleSigmet = (event: ChangeEvent<HTMLInputElement>) => {
-        updateContext({
-            ...briefingData,
-            query: {
-                ...briefingData.query,
-                reportTypes: {
-                    ...briefingData.query.reportTypes,
-                    SIGMET: event.target.checked
-                }
-            }
-        });
+        updateCheckboxes({ SIGMET: event.target.checked });
     };
 
     const toggleTaf = (event: ChangeEvent<HTMLInputElement>) => {
-        updateContext({
-            ...briefingData,
-            query: {
-                ...briefingData.query,
-                reportTypes: {
-                    ...briefingData.query.reportTypes,
-                    TAF_LONGTAF: event.target.checked
-                }
-            }
-        });
+        updateCheckboxes({ TAF_LONGTAF: event.target.checked });
     };
 
     const isErroredCheckboxes = isFormSendable(briefingData);
@@ -72,7 +65,7 @@ export const Checkboxes = () => {
                         />
                     }
                     label="METAR"
-                    className={styles.label_padding}
+                    className={`${styles.label_padding} ${styles.unselectableLabel}`}
                 />
                 <FormControlLabel
                     control={
@@ -84,7 +77,7 @@ export const Checkboxes = () => {
                         />
                     }
                     label="SIGMET"
-                    className={styles.label_padding}
+                    className={`${styles.label_padding} ${styles.unselectableLabel}`}
                 />
                 <FormControlLabel
                     control={
@@ -96,7 +89,7 @@ export const Checkboxes = () => {
                         />
                     }
                     label="TAF"
-                    className={styles.label_padding}
+                    className={`${styles.label_padding} ${styles.unselectableLabel}`}
                 />
             </FormGroup>
         </FormControl>
