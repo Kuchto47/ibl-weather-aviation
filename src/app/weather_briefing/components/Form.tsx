@@ -68,13 +68,13 @@ const InputTable = () => {
                     <TableRow>
                         <TableCell>Airports:</TableCell>
                         <TableCell>
-                            <TextInputField />
+                            <TextInputField label='Airports'/>
                         </TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>Countries:</TableCell>
                         <TableCell>
-                            <TextInputField />
+                            <TextInputField label='Countries'/>
                         </TableCell>
                     </TableRow>
                 </TableBody>
