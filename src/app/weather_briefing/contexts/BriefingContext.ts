@@ -19,8 +19,8 @@ export const defaultBriefingData: BriefingContextData = {
             SIGMET: false,
             TAF_LONGTAF: false
         },
-        countries: [],
-        stations: []
+        countries: '',
+        stations: ''
     }
 };
 

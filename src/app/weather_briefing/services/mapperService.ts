@@ -6,6 +6,7 @@ import {
 import { BriefingDataArray } from '../model/BriefingData';
 import { ReportTypes, WeatherQuery } from '../model/WeatherQuery';
 import { v4 } from 'uuid';
+import { splitTextOnSpaces } from '../utils/splitTextOnWhitespaces';
 
 export const mapWeatherQueryToRequestDto = (query: WeatherQuery): OpmetRequestDTO => {
     const uniqueId = v4();
@@ -15,8 +16,8 @@ export const mapWeatherQueryToRequestDto = (query: WeatherQuery): OpmetRequestDT
         params: [
             {
                 id: uniqueId,
-                countries: query.countries,
-                stations: query.stations,
+                countries: splitTextOnSpaces(query.countries),
+                stations: splitTextOnSpaces(query.stations),
                 reportTypes: mapReportTypes(query.reportTypes)
             }
         ]
