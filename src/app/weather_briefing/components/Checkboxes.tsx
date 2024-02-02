@@ -1,5 +1,5 @@
 import { Checkbox, FormControl, FormControlLabel, FormGroup } from '@mui/material';
-import { useContext } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import { BriefingContext } from '../contexts/BriefingContext';
 import { isFormSendable } from '../utils/isFormSendable';
@@ -18,7 +18,7 @@ export const Checkboxes = () => {
 
     const styles = useStyles();
 
-    const toggleMetar = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const toggleMetar = (event: ChangeEvent<HTMLInputElement>) => {
         updateContext({
             ...briefingData,
             query: {
@@ -31,7 +31,7 @@ export const Checkboxes = () => {
         });
     };
 
-    const toggleSigmet = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const toggleSigmet = (event: ChangeEvent<HTMLInputElement>) => {
         updateContext({
             ...briefingData,
             query: {
@@ -44,7 +44,7 @@ export const Checkboxes = () => {
         });
     };
 
-    const toggleTaf = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const toggleTaf = (event: ChangeEvent<HTMLInputElement>) => {
         updateContext({
             ...briefingData,
             query: {
