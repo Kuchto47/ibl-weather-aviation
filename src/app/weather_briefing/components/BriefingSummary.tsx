@@ -29,8 +29,13 @@ const createTableRecords = (data: BriefingDataDictionary | undefined): JSX.Eleme
             {arrayifiedMap.map((obj, outerIndex) => {
                 return (
                     <Fragment key={outerIndex}>
-                        <TableRow key={outerIndex} sx={{backgroundColor: '#BEBEBE'}}>
-                            <TableCell>{obj.key}</TableCell>
+                        <TableRow
+                            key={outerIndex}
+                            sx={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+                        >
+                            <TableCell>
+                                <b>{obj.key}</b>
+                            </TableCell>
                             <TableCell />
                             <TableCell />
                         </TableRow>
