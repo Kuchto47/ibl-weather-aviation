@@ -1,10 +1,10 @@
 import { createContext } from 'react';
 import { WeatherQuery } from '../model/WeatherQuery';
-import { BriefingDataArray } from '../model/BriefingData';
+import { BriefingDataDictionary } from '../model/BriefingData';
 
 export interface BriefingContextData {
     query: WeatherQuery;
-    response?: BriefingDataArray;
+    response?: BriefingDataDictionary;
 }
 
 interface BriefingContextBundle {
