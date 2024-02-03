@@ -23,9 +23,22 @@ export const TextInputField = (props: PropsWithChildren<Props>) => {
         });
     };
 
+    const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
+        event.target.value = event.target.value.toUpperCase();
+    };
+
     return (
         <FormControl fullWidth>
-            <TextField label={props.label} variant="filled" value={value} onChange={handleChange} />
+            <TextField
+                label={props.label}
+                variant="filled"
+                value={value}
+                onChange={handleChange}
+                inputProps={{
+                    onInput: handleInput,
+                    style: { textTransform: 'uppercase' }
+                }}
+            />
         </FormControl>
     );
 };
