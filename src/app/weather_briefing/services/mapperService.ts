@@ -56,7 +56,6 @@ const generateStationBriefingData = (data: OpmetResponseResultDTO): StationBrief
     return {
         queryType: data.queryType,
         reportTime: data.reportTime,
-        text: data.text,
-        textHTML: data.textHTML
+        text: data.text
     };
 };

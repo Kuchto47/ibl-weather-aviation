@@ -6,5 +6,4 @@ export type StationBriefingData = {
     queryType: OpmetResponseResultDTOQueryTypeEnum;
     reportTime: Date;
     text: string;
-    textHTML?: string;
 };
