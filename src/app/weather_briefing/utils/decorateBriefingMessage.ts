@@ -1,6 +1,6 @@
 import { Palette } from '@mui/material';
 
-type InfoType = 'BKN' | 'FEW' | 'SCT';
+type CloudSeverity = 'BKN' | 'FEW' | 'SCT';
 
 export class BriefingMessageDecorator {
     constructor(
@@ -13,8 +13,8 @@ export class BriefingMessageDecorator {
             .messageToDecorate;
     }
 
-    private decorateClouds(infoType: InfoType): BriefingMessageDecorator {
-        const regex = new RegExp(`\\b(${infoType}[0-9]{3})\\b`, 'g');
+    private decorateClouds(cloudSeverity: CloudSeverity): BriefingMessageDecorator {
+        const regex = new RegExp(`\\b(${cloudSeverity}[0-9]{3})\\b`, 'g');
         this.messageToDecorate = this.messageToDecorate.replace(regex, (match) => {
             const number = Number(match.slice(-3));
             return `<font color=\"${this.shouldBeBlue(number) ? this.adaptBlueColor() : 'red'}\">${match}</font>`;
