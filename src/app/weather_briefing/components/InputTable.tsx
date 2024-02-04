@@ -16,7 +16,7 @@ export const InputTable = () => {
     return (
         <TableContainer
             component={Paper}
-            sx={{ backgroundColor: theme.palette.primary[theme.palette.mode] }}
+            sx={{ backgroundColor: theme.palette.secondary[theme.palette.mode] }}
         >
             <Table sx={{ minWidth: '470px' }}>
                 <TableBody>

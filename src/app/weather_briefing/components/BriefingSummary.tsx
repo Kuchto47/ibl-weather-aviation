@@ -45,7 +45,7 @@ const TableRows = (props: PropsWithChildren<TableRowsProps>) => {
                     <Fragment key={outerIndex}>
                         <TableRow
                             key={outerIndex}
-                            sx={{ backgroundColor: theme.palette.primary[theme.palette.mode] }}
+                            sx={{ backgroundColor: theme.palette.secondary[theme.palette.mode] }}
                         >
                             <TableCell>
                                 <b>{obj.key}</b>
