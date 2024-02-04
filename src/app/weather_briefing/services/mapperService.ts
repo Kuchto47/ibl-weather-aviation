@@ -26,20 +26,19 @@ export const mapWeatherQueryToRequestDto = (query: WeatherQuery): OpmetRequestDT
 };
 
 export const mapResponseDtoToBriefingDataDict = (
-    response: OpmetResponseDTO | undefined
+    response: OpmetResponseDTO
 ): BriefingDataDictionary => {
     const dict: BriefingDataDictionary = new Map<string, StationBriefingData[]>();
-    if (response && response.result) {
-        response.result.forEach((result) => {
-            const data = generateStationBriefingData(result);
-            if (dict.has(result.stationId)) {
-                const record = dict.get(result.stationId)!;
-                dict.set(result.stationId, [...record, data]);
-            } else {
-                dict.set(result.stationId, [data]);
-            }
-        });
-    }
+    const transformResult = (result: OpmetResponseResultDTO) => {
+        const data = generateStationBriefingData(result);
+        if (dict.has(result.stationId)) {
+            const record = dict.get(result.stationId)!;
+            dict.set(result.stationId, [...record, data]);
+        } else {
+            dict.set(result.stationId, [data]);
+        }
+    };
+    response.result?.forEach(transformResult);
     return dict;
 };
 

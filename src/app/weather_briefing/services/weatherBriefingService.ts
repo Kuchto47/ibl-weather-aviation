@@ -1,18 +1,19 @@
 import { OpmetApi } from '../../../generated/sdk';
 import { WeatherQueryError } from '../errors/WeatherQueryError';
+import { BriefingDataDictionary } from '../model/BriefingData';
 import { WeatherQuery } from '../model/WeatherQuery';
-import { mapWeatherQueryToRequestDto } from './mapperService';
+import { mapResponseDtoToBriefingDataDict, mapWeatherQueryToRequestDto } from './mapperService';
 
 export class WeatherBriefingService {
     public constructor(private opmetApi: OpmetApi) {}
 
-    async getWeatherBriefing(query: WeatherQuery) {
+    async getWeatherBriefing(query: WeatherQuery): Promise<BriefingDataDictionary | undefined> {
         try {
             const response = await this.opmetApi.getWeatherInfo({
                 opmetRequestDTO: mapWeatherQueryToRequestDto(query)
             });
             if (response.error) throw new WeatherQueryError(response.error.message);
-            return response;
+            return mapResponseDtoToBriefingDataDict(response);
         } catch (error) {
             //TODO add nice error handling
             if (error instanceof WeatherQueryError) {
