@@ -5,17 +5,26 @@ Assignment made for interview purpose.
 Assignment itself is described [here](https://ogcie.iblsoft.com/developer-web/)
 
 ## Development
-In order to develop this project, clone to your machine and then
+
+In order to develop this project, clone to your machine
+
+### Prerequisites
+
+- Git installed
+- Node.js (tested on LTS v20) installed
+
+### Installing dependencies after cloning
 
 ```
 npm i
 ```
-This will install all the dependencies
+### Running the app locally
 
 ```
 npm run dev
 ```
-This will start the dev server, running on [http://localhost:5173/](http://localhost:5173/)
+
+You can play around with the app on [http://localhost:5173/](http://localhost:5173/)
 
 ## Possible Future Improvements
 There are multiple possible improvements for the codebase, which i consider way above the assignment's scope.
