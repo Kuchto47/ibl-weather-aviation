@@ -29,7 +29,7 @@ interface TableRowsProps  {
 
 const TableRows = (props: PropsWithChildren<TableRowsProps>) => {
     const theme = useTheme();
-    // TODO bg color
+    
     return (props.data
         ? <>
             {convertMapToArray(props.data).map((obj, outerIndex) => {

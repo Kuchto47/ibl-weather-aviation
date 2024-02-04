@@ -9,6 +9,8 @@ export const isFormSendable = (briefingData: BriefingContextData): boolean => {
     );
 };
 
+// TODO this could be done better, eg. airports and countries could be checked by zod for schema fulfillment and upon error make it unsendable...
+
 const atLeastOneCheckboxActive = (reportTypes: ReportTypes): boolean => {
     return (
         [reportTypes.METAR, reportTypes.SIGMET, reportTypes.TAF_LONGTAF].filter((rt) => !!rt)
@@ -27,7 +29,7 @@ const countriesNonEmpty = (query: WeatherQuery): boolean => {
 };
 
 const airportsLengthSufficient = (airports: string | undefined): boolean => {
-    return !!(airports && airports.length >= 4); // TODO regex test
+    return !!(airports && airports.length >= 4); // TODO regex test could be better than this, but still uglier than eg. zod schema
 };
 
 const airportsEmpty = (airports: string | undefined): boolean => {
@@ -35,7 +37,7 @@ const airportsEmpty = (airports: string | undefined): boolean => {
 };
 
 const countriesLengthSufficient = (countries: string | undefined): boolean => {
-    return !!(countries && countries.length >= 2); // TODO regex test
+    return !!(countries && countries.length >= 2); // TODO regex test could be better than this, but still uglier than eg. zod schema
 };
 
 const countriesEmpty = (countries: string | undefined): boolean => {
@@ -53,5 +55,3 @@ const metarMinimumRequirementsMet = (query: WeatherQuery) => {
         (countriesLengthSufficient(query.countries) || countriesEmpty(query.countries))
     );
 };
-
-// TODO this could be done better, eg. airports and countries could be checked by zod for schema fulfillment and upon error make it unsendable...

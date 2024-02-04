@@ -16,11 +16,7 @@ export class WeatherBriefingService {
             return mapResponseDtoToBriefingDataDict(response);
         } catch (error) {
             //TODO add nice error handling
-            if (error instanceof WeatherQueryError) {
-                console.error(`Something went wrong: ${error.message}`);
-            } else {
-                console.error(`Something went wrong: ${error}`);
-            }
+            console.error(`Something went wrong: ${error instanceof WeatherQueryError ? error.message : error}`);
         }
     }
 }
