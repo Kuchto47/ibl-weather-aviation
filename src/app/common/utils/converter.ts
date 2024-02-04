@@ -3,7 +3,6 @@ type ObjectifiedMapRecord<K, V> = {
     value: V;
 };
 
-export function convertMapToArray<K, V>(map: Map<K, V> | undefined): ObjectifiedMapRecord<K, V>[] {
-    if (!map) return [];
+export function convertMapToArray<K, V>(map: Map<K, V>): ObjectifiedMapRecord<K, V>[] {
     return Array.from(map, ([key, value]) => ({ key, value }));
 }
