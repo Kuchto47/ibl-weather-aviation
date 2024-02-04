@@ -1,12 +1,23 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, useTheme } from '@mui/material';
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableRow,
+    useTheme
+} from '@mui/material';
 import { Checkboxes } from './Checkboxes';
 import { TextInputField } from './TextInputField';
 
 export const InputTable = () => {
     const theme = useTheme();
-    
+
     return (
-        <TableContainer component={Paper} sx={{ backgroundColor: theme.palette.primary[theme.palette.mode] }}>
+        <TableContainer
+            component={Paper}
+            sx={{ backgroundColor: theme.palette.primary[theme.palette.mode] }}
+        >
             <Table sx={{ minWidth: '470px' }}>
                 <TableBody>
                     <TableRow>

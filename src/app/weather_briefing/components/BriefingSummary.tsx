@@ -1,6 +1,14 @@
 import { Fragment, PropsWithChildren, useContext } from 'react';
 import { BriefingContext } from '../contexts/BriefingContext';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, useTheme } from '@mui/material';
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableRow,
+    useTheme
+} from '@mui/material';
 import { BriefingDataDictionary } from '../model/BriefingData';
 import { formatDate } from '../utils/formatDate';
 import { convertMapToArray } from '../utils/converter';
@@ -23,15 +31,15 @@ export const BriefingSummary = () => {
     );
 };
 
-interface TableRowsProps  {
-    data: BriefingDataDictionary | undefined
+interface TableRowsProps {
+    data: BriefingDataDictionary | undefined;
 }
 
 const TableRows = (props: PropsWithChildren<TableRowsProps>) => {
     const theme = useTheme();
-    
-    return (props.data
-        ? <>
+
+    return props.data ? (
+        <>
             {convertMapToArray(props.data).map((obj, outerIndex) => {
                 return (
                     <Fragment key={outerIndex}>
@@ -60,6 +68,7 @@ const TableRows = (props: PropsWithChildren<TableRowsProps>) => {
                 );
             })}
         </>
-        : <></>
+    ) : (
+        <></>
     );
 };
