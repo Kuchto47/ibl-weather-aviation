@@ -1,5 +1,6 @@
 import {
     OpmetRequestDTO,
+    OpmetRequestParamDTO,
     OpmetRequestParamDTOReportTypesEnum,
     OpmetResponseDTO,
     OpmetResponseResultDTO
@@ -9,19 +10,23 @@ import { ReportTypes, WeatherQuery } from '../model/WeatherQuery';
 import { v4 } from 'uuid';
 import { splitTextOnSpaces } from '../utils/splitTextOnWhitespaces';
 
+const METAR = 'METAR',
+    SIGMET = 'SIGMET',
+    TAF_LONGTAF = 'TAF_LONGTAF';
+
 export const mapWeatherQueryToRequestDto = (query: WeatherQuery): OpmetRequestDTO => {
-    const uniqueId = v4();
+    const sigmetRequest = mapSigmetRequest(query);
+    const metarAndTafAirportsRequest = mapMetarAndTafRequest(query);
+
+    const params: OpmetRequestParamDTO[] = [];
+
+    if (sigmetRequest) params.push(sigmetRequest);
+    if (metarAndTafAirportsRequest) params.push(metarAndTafAirportsRequest);
+
     return {
-        id: uniqueId,
+        id: v4(),
         method: 'query',
-        params: [
-            {
-                id: uniqueId,
-                countries: splitTextOnSpaces(query.countries),
-                stations: splitTextOnSpaces(query.stations),
-                reportTypes: mapReportTypes(query.reportTypes)
-            }
-        ]
+        params
     };
 };
 
@@ -42,12 +47,13 @@ export const mapResponseDtoToBriefingDataDict = (
     return dict;
 };
 
-const mapReportTypes = (reportTypes: ReportTypes): OpmetRequestParamDTOReportTypesEnum[] => {
+const mapNonSigmetReportTypes = (
+    reportTypes: ReportTypes
+): OpmetRequestParamDTOReportTypesEnum[] => {
     const reportTypesDto: OpmetRequestParamDTOReportTypesEnum[] = [];
     // TODO: this is horrible hardcode, refactor...
-    if (reportTypes.METAR) reportTypesDto.push('METAR');
-    if (reportTypes.SIGMET) reportTypesDto.push('SIGMET');
-    if (reportTypes.TAF_LONGTAF) reportTypesDto.push('TAF_LONGTAF');
+    if (reportTypes.METAR) reportTypesDto.push(METAR);
+    if (reportTypes.TAF_LONGTAF) reportTypesDto.push(TAF_LONGTAF);
 
     return reportTypesDto;
 };
@@ -57,5 +63,23 @@ const generateStationBriefingData = (data: OpmetResponseResultDTO): StationBrief
         queryType: data.queryType,
         reportTime: data.reportTime,
         text: data.text
+    };
+};
+
+const mapSigmetRequest = (query: WeatherQuery): OpmetRequestParamDTO | undefined => {
+    if (!query.reportTypes.SIGMET) return undefined;
+    return {
+        id: v4(),
+        reportTypes: [SIGMET],
+        countries: splitTextOnSpaces(query.countries)
+    };
+};
+
+const mapMetarAndTafRequest = (query: WeatherQuery): OpmetRequestParamDTO | undefined => {
+    if (!query.reportTypes.METAR && !query.reportTypes.TAF_LONGTAF) return undefined;
+    return {
+        id: v4(),
+        reportTypes: mapNonSigmetReportTypes(query.reportTypes),
+        stations: splitTextOnSpaces(query.stations)
     };
 };

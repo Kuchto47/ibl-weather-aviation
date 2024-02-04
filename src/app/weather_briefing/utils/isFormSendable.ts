@@ -4,8 +4,8 @@ import { ReportTypes, WeatherQuery } from '../model/WeatherQuery';
 export const isFormSendable = (briefingData: BriefingContextData): boolean => {
     return (
         atLeastOneCheckboxActive(briefingData.query.reportTypes) &&
-        metarAirportOrCountryNonEmpty(briefingData.query) &&
-        countriesNonEmpty(briefingData.query)
+        tafAndMetarAirportsNonEmpty(briefingData.query) &&
+        sigmetCountriesNonEmpty(briefingData.query)
     );
 };
 
@@ -18,13 +18,13 @@ const atLeastOneCheckboxActive = (reportTypes: ReportTypes): boolean => {
     );
 };
 
-const metarAirportOrCountryNonEmpty = (query: WeatherQuery): boolean => {
-    if (!query.reportTypes.METAR) return true;
-    return metarMinimumRequirementsMet(query);
+const tafAndMetarAirportsNonEmpty = (query: WeatherQuery): boolean => {
+    if (!query.reportTypes.METAR && !query.reportTypes.TAF_LONGTAF) return true;
+    return airportsLengthSufficient(query.stations);
 };
 
-const countriesNonEmpty = (query: WeatherQuery): boolean => {
-    if (!query.reportTypes.SIGMET && !query.reportTypes.TAF_LONGTAF) return true;
+const sigmetCountriesNonEmpty = (query: WeatherQuery): boolean => {
+    if (!query.reportTypes.SIGMET) return true;
     return countriesLengthSufficient(query.countries);
 };
 
@@ -32,26 +32,6 @@ const airportsLengthSufficient = (airports: string | undefined): boolean => {
     return !!(airports && airports.length >= 4); // TODO regex test could be better than this, but still uglier than eg. zod schema
 };
 
-const airportsEmpty = (airports: string | undefined): boolean => {
-    return !airports || airports.length === 0;
-};
-
 const countriesLengthSufficient = (countries: string | undefined): boolean => {
     return !!(countries && countries.length >= 2); // TODO regex test could be better than this, but still uglier than eg. zod schema
-};
-
-const countriesEmpty = (countries: string | undefined): boolean => {
-    return !countries || countries.length === 0;
-};
-
-const bothCountriesAndAirportsAreEmpty = (query: WeatherQuery) => {
-    return countriesEmpty(query.countries) && airportsEmpty(query.stations);
-};
-
-const metarMinimumRequirementsMet = (query: WeatherQuery) => {
-    return (
-        !bothCountriesAndAirportsAreEmpty(query) &&
-        (airportsLengthSufficient(query.stations) || airportsEmpty(query.stations)) &&
-        (countriesLengthSufficient(query.countries) || countriesEmpty(query.countries))
-    );
 };
