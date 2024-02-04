@@ -12,6 +12,7 @@ import {
 import { BriefingDataDictionary } from '../model/BriefingData';
 import { formatDate } from '../utils/formatDate';
 import { convertMapToArray } from '../../common/utils/converter';
+import { BriefingMessageDecorator } from '../utils/decorateBriefingMessage';
 
 export const BriefingSummary = () => {
     const { briefingData } = useContext(BriefingContext);
@@ -60,7 +61,16 @@ const TableRows = (props: PropsWithChildren<TableRowsProps>) => {
                                     <TableCell>
                                         {formatDate(stationBriefingData.reportTime)}
                                     </TableCell>
-                                    <TableCell>{stationBriefingData.text}</TableCell>
+                                    <TableCell>
+                                        <div
+                                            dangerouslySetInnerHTML={{
+                                                __html: new BriefingMessageDecorator(
+                                                    stationBriefingData.text,
+                                                    theme.palette
+                                                ).decorate()
+                                            }}
+                                        ></div>
+                                    </TableCell>
                                 </TableRow>
                             );
                         })}
