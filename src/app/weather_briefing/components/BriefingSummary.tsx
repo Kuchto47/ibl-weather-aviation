@@ -1,6 +1,6 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, PropsWithChildren, useContext } from 'react';
 import { BriefingContext } from '../contexts/BriefingContext';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, useTheme } from '@mui/material';
 import { BriefingDataDictionary } from '../model/BriefingData';
 import { formatDate } from '../utils/formatDate';
 import { convertMapToArray } from '../utils/converter';
@@ -13,7 +13,9 @@ export const BriefingSummary = () => {
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: '440px' }}>
                     <Table sx={{ minWidth: '475px' }}>
-                        <TableBody>{createTableRecords(briefingData.response)}</TableBody>
+                        <TableBody>
+                            <TableRows data={briefingData.response} />
+                        </TableBody>
                     </Table>
                 </TableContainer>
             </Paper>
@@ -21,17 +23,21 @@ export const BriefingSummary = () => {
     );
 };
 
-const createTableRecords = (data: BriefingDataDictionary | undefined): JSX.Element => {
-    if (!data) return <></>;
-    const arrayifiedMap = convertMapToArray(data);
-    return (
-        <>
-            {arrayifiedMap.map((obj, outerIndex) => {
+interface TableRowsProps  {
+    data: BriefingDataDictionary | undefined
+}
+
+const TableRows = (props: PropsWithChildren<TableRowsProps>) => {
+    const theme = useTheme();
+    // TODO bg color
+    return (props.data
+        ? <>
+            {convertMapToArray(props.data).map((obj, outerIndex) => {
                 return (
                     <Fragment key={outerIndex}>
                         <TableRow
                             key={outerIndex}
-                            sx={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+                            sx={{ backgroundColor: theme.palette.primary[theme.palette.mode] }}
                         >
                             <TableCell>
                                 <b>{obj.key}</b>
@@ -54,5 +60,6 @@ const createTableRecords = (data: BriefingDataDictionary | undefined): JSX.Eleme
                 );
             })}
         </>
+        : <></>
     );
 };
