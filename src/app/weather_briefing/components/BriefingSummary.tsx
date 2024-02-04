@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { BriefingDataDictionary } from '../model/BriefingData';
 import { formatDate } from '../utils/formatDate';
-import { convertMapToArray } from '../utils/converter';
+import { convertMapToArray } from '../../common/utils/converter';
 
 export const BriefingSummary = () => {
     const { briefingData } = useContext(BriefingContext);
